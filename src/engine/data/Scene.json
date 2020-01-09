@@ -1,0 +1,16 @@
+[
+    {
+        "name": "GameObject",
+        "type": "Cube",
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "rotX": 0,
+        "rotY": 0,
+        "rotZ": 0,
+        "scaleX": 0,
+        "scaleY": 0,
+        "scaleZ": 0,
+        "children": []
+    }
+]
