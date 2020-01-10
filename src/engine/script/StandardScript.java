@@ -1,10 +1,11 @@
 package engine.script;
 
 import engine.*;
+import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
 
-public abstract class StandardScript extends Behavior {
+public abstract class StandardScript extends Behavior implements KeyListener {
     private WakeupCriterion[] wakeupCriterion;
     private WakeupOr wakeupOr;
     

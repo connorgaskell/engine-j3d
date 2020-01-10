@@ -4,6 +4,7 @@ import engine.game.Game;
 import engine.objects.primitives.*;
 import engine.script.StandardScript;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.vecmath.*;
 
 public class TestScript extends StandardScript {
@@ -28,6 +29,7 @@ public class TestScript extends StandardScript {
                 }
             }
         }
+
     }
 
     @Override
@@ -37,12 +39,29 @@ public class TestScript extends StandardScript {
 
     @Override
     public void frameUpdate() {
-        System.out.println("This message will appear every frame.");
+        //System.out.println("This message will appear every frame.");
     }
 
     @Override
     public void lateUpdate() {
 
     }
-    
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_W) {
+            System.out.println("Key Pressed");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
+
 }

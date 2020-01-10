@@ -20,7 +20,9 @@ public class ScriptLoader {
      * @throws IllegalAccessException
      */
     public ScriptLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        ((BranchGroup)getNode("worldGroup")).addChild((StandardScript)Class.forName("game.scripts.TestScript").newInstance());
+        StandardScript script = (StandardScript)Class.forName("game.scripts.TestScript").newInstance();
+        ((BranchGroup)getNode("worldGroup")).addChild(script);
+        Game.scene.getCanvas().addKeyListener(script);
     }
 
     /*
