@@ -17,16 +17,20 @@ public class Game extends JPanel {
     
     private void createWorld() {
         rootGroup = new BranchGroup();
+        rootGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         rootGroup.setName("rootGroup");
         nodeList.add(rootGroup);
         
         worldGroup = new BranchGroup();
+        worldGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         
         try {
             new ScriptLoader();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Plane plane = new Plane(new Vector3d(0, 0, 0), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.WHITE), worldGroup, "Test");
 
         rootGroup.addChild(worldGroup);
         rootGroup.addChild(fogGroup);
@@ -50,7 +54,7 @@ public class Game extends JPanel {
 
                 g.setColor(Color.WHITE);
 
-                g.drawString("Test",(int)(screenWidth / 2) - 45, (int)(screenHeight) - 20);
+                g.drawString(Settings.APP_VERSION,(int)(screenWidth / 2) - 12, (int)(screenHeight) - 20);
 
                 this.getGraphics2D().flush(false);
                 revalidate();
