@@ -1,6 +1,6 @@
 package engine;
 
-import engine.game.Game;
+import engine.core.Engine;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.*;
@@ -38,8 +38,8 @@ public class Frame extends JFrame {
         // Close the window when the user presses the close button
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        // Create an object of Game (Java3D Canvas) and add it to the frame
-        getContentPane().add(new Game(), BorderLayout.CENTER);
+        // Create an object of Engine (Java3D Canvas) and add it to the frame
+        getContentPane().add(new Engine(), BorderLayout.CENTER);
 
         // Set the window visible
         setVisible(true);

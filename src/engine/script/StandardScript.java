@@ -1,16 +1,20 @@
 package engine.script;
 
 import engine.*;
+import engine.objects.Instantiation;
+import engine.objects.Prefab;
 import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
 
 public abstract class StandardScript extends Behavior implements KeyListener {
+    private final Instantiation instantiate;
     private WakeupCriterion[] wakeupCriterion;
     private WakeupOr wakeupOr;
     
     public StandardScript() {
         setSchedulingBounds(Settings.INFINITE_BOUNDS);
+        instantiate = new Instantiation(new Prefab());
     }
     
     @Override

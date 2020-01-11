@@ -1,22 +1,20 @@
-package engine.game;
+package engine.core;
 
 import com.sun.j3d.utils.universe.*;
 import engine.*;
-import engine.script.ScriptLoader;
+import engine.script.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.*;
+import java.util.logging.*;
 import javax.media.j3d.*;
 import javax.swing.*;
-import javax.vecmath.*;
 
-public class Game extends JPanel {
+public class Engine extends JPanel {
     public static SimpleUniverse scene;
     public static BranchGroup rootGroup, worldGroup, fogGroup;
     public static ArrayList<Node> nodeList = new ArrayList<>();
     
-    private void createWorld() {
+    private void createBranches() {
         rootGroup = new BranchGroup();
         rootGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         rootGroup.setName("rootGroup");
@@ -25,20 +23,24 @@ public class Game extends JPanel {
         worldGroup = new BranchGroup();
         worldGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         
-        try {
-            new ScriptLoader();
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //Plane plane = new Plane(new Vector3d(0, 0, 0), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.WHITE), worldGroup, "Test");
+        fogGroup = new BranchGroup();
 
         rootGroup.addChild(worldGroup);
         rootGroup.addChild(fogGroup);
+        
+        loadScripts();
         rootGroup.compile();
     }
     
-    public Game() {
+    private void loadScripts() {
+        try {
+            new ScriptLoader();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            Logger.getLogger(Engine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Engine() {
         setLayout(new BorderLayout());
         GraphicsConfigTemplate3D configTemplate3D = new GraphicsConfigTemplate3D();
         configTemplate3D.setSceneAntialiasing(GraphicsConfigTemplate.PREFERRED);
@@ -67,30 +69,10 @@ public class Game extends JPanel {
         
         scene = new SimpleUniverse(canvas);
 
-        fogGroup = new BranchGroup();
-        
-        createWorld();
+        createBranches();
         
         add("Center", canvas);
 
-        Viewer viewer = scene.getViewer();
-        View view = viewer.getView();
-        view.setBackClipDistance(Settings.RENDER_DISTANCE);
-        view.setSceneAntialiasingEnable(true);
-        view.setDepthBufferFreezeTransparent(true);
-        view.setTransparencySortingPolicy(View.PERSPECTIVE_PROJECTION);
-        view.setScreenScalePolicy(View.SCALE_EXPLICIT);
-        view.setProjectionPolicy(View.PERSPECTIVE_PROJECTION);
-        view.setWindowEyepointPolicy(View.RELATIVE_TO_FIELD_OF_VIEW);
-        view.setFieldOfView(1.5f);
-
-        scene.getViewingPlatform().setNominalViewingTransform();
-        Transform3D viewPosTransform = new Transform3D();
-        viewPosTransform.set(new Vector3f(0.0f, 0.0f, 125.0f));
-        Transform3D viewRotTransform = new Transform3D();
-        viewRotTransform.setRotation(new Quat4d(25 * (Math.PI / 180), 0.0f, 0.0f, -1.0f));
-        viewRotTransform.mul(viewPosTransform);
-        scene.getViewingPlatform().getViewPlatformTransform().setTransform(viewRotTransform);
         scene.addBranchGraph(rootGroup);
     }
     

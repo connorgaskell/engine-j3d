@@ -1,6 +1,6 @@
 package engine.script;
 
-import engine.game.*;
+import engine.core.Engine;
 import javax.media.j3d.*;
 
 /*
@@ -22,7 +22,7 @@ public class ScriptLoader {
     public ScriptLoader() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         StandardScript script = (StandardScript)Class.forName("game.scripts.TestScript").newInstance();
         ((BranchGroup)getNode("worldGroup")).addChild(script);
-        Game.scene.getCanvas().addKeyListener(script);
+        Engine.scene.getCanvas().addKeyListener(script);
     }
 
     /*
@@ -30,12 +30,12 @@ public class ScriptLoader {
      * @param nodeName The name of the Node the Script will be attached to.
      */
     private Node getNode(String nodeName) {
-        for (Node node : Game.nodeList) {
+        for (Node node : Engine.nodeList) {
             if (nodeName.equals(node.getName())) {
                 return node;
             }
         }
-        return Game.rootGroup;
+        return Engine.rootGroup;
     }
     
 }
