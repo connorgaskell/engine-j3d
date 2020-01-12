@@ -6,15 +6,20 @@ import engine.objects.primitives.*;
 import engine.script.StandardScript;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.*;
 import javax.vecmath.*;
 
 public class TestScript extends StandardScript {
 
     private Camera camera;
+    private final Set<Character> pressed = new HashSet<Character>();
     
     @Override
     public void start() {
         camera = new Camera();
+        posX = camera.getPosition().x;
+        posY = camera.getPosition().y;
+        posZ = camera.getPosition().z;
         
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
@@ -45,7 +50,8 @@ public class TestScript extends StandardScript {
 
     @Override
     public void frameUpdate() {
-        //System.out.println("This message will appear every frame.");
+        //camera.lookAt(new Point3d(rotX, rotY, rotZ));
+        //camera.setPosition(new Vector3f(posX, posY, posZ));
     }
 
     @Override
@@ -54,27 +60,53 @@ public class TestScript extends StandardScript {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public synchronized void keyTyped(KeyEvent e) {
         
     }
 
+    float rotX, rotY, rotZ = 0;
+    float posX, posY, posZ = 0;
+    float rotSpeed = 4;
+    float translateSpeed = 4;
+    
     @Override
-    public void keyPressed(KeyEvent e) {
+    public synchronized void keyPressed(KeyEvent e) {
+        pressed.add(e.getKeyChar());
         switch(e.getKeyCode()) {
             case KeyEvent.VK_W:
-                camera.setPosition(new Vector3f(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z - 4f));
+                camera.translate(new Vector3f(0, 0, -translateSpeed));
+                posZ -= translateSpeed;
                 break;
                 
             case KeyEvent.VK_S:
-                camera.setPosition(new Vector3f(camera.getPosition().x, camera.getPosition().y, camera.getPosition().z + 4f));
+                camera.translate(new Vector3f(0, 0, translateSpeed));
+                posZ += translateSpeed;
                 break;
                 
             case KeyEvent.VK_A:
-                camera.setPosition(new Vector3f(camera.getPosition().x - 4f, camera.getPosition().y, camera.getPosition().z));
+                camera.translate(new Vector3f(-translateSpeed, 0, 0));
+                posX -= translateSpeed;
                 break;
             
             case KeyEvent.VK_D:
-                camera.setPosition(new Vector3f(camera.getPosition().x + 4f, camera.getPosition().y, camera.getPosition().z));
+                camera.translate(new Vector3f(translateSpeed, 0, 0));
+                posX += translateSpeed;
+                break;
+                
+            case KeyEvent.VK_UP:
+                rotY += rotSpeed;
+                break;
+                
+            case KeyEvent.VK_DOWN:
+                rotY -= rotSpeed;
+                break;
+                
+            case KeyEvent.VK_LEFT:
+                rotX -= rotSpeed;
+                break;
+                
+            case KeyEvent.VK_RIGHT:
+                rotX += rotSpeed;
                 break;
         }
         
@@ -82,7 +114,7 @@ public class TestScript extends StandardScript {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
+        pressed.remove(e.getKeyChar());
     }
 
 }

@@ -6,13 +6,15 @@ import engine.core.Engine;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.media.j3d.View;
+import javax.vecmath.Point3d;
 import javax.vecmath.Quat4d;
+import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
 public class Camera {
     
-    private Viewer viewer;
-    private View view;
+    private final Viewer viewer;
+    private final View view;
     
     public Camera() {
         viewer = Engine.scene.getViewer();
@@ -35,9 +37,19 @@ public class Camera {
         Engine.scene.getViewingPlatform().getViewPlatformTransform().setTransform(viewRotTransform);
     }
     
+    public void translate(Vector3f translation) {
+        Transform3D transform3D = getTransform(Engine.scene.getViewingPlatform().getViewPlatformTransform());
+        Vector3f pos = getPosition();
+        pos.add(translation);
+        transform3D.setTranslation(pos);
+
+        Engine.scene.getViewingPlatform().getViewPlatformTransform().setTransform(transform3D);
+    }
+    
     public void setPosition(Vector3f pos) {
         Transform3D transform3D = getTransform(Engine.scene.getViewingPlatform().getViewPlatformTransform());
-        transform3D.set(pos);
+        transform3D.setTranslation(pos);
+        
         Engine.scene.getViewingPlatform().getViewPlatformTransform().setTransform(transform3D);
     }
     
@@ -64,11 +76,20 @@ public class Camera {
         return pos;
     }
     
-    public Vector3f getRotation() {
+    public Quat4d getRotation() {
         Transform3D transform3D = getTransform(Engine.scene.getViewingPlatform().getViewPlatformTransform());
-        Vector3f rot = new Vector3f();
+        Quat4d rot = new Quat4d();
         transform3D.get(rot);
         return rot;
     }
     
+    public void lookAt(Point3d point) {
+        Transform3D transform3D = getTransform(Engine.scene.getViewingPlatform().getViewPlatformTransform());
+        Point3d cameraPos = new Point3d(getPosition().x, getPosition().y, getPosition().z);
+
+        transform3D.lookAt(cameraPos, point, new Vector3d(0, 1, 0));
+        transform3D.invert();
+        Engine.scene.getViewingPlatform().getViewPlatformTransform().setTransform(transform3D);
+    }
+
 }
