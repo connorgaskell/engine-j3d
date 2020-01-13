@@ -6,15 +6,22 @@ import engine.objects.Prefab;
 import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
+import javax.vecmath.Quat4d;
+import javax.vecmath.Vector3f;
 
 public abstract class StandardScript extends Behavior implements KeyListener {
-    private final Instantiation instantiate;
+    private final Instantiation instantiation;
     private WakeupCriterion[] wakeupCriterion;
     private WakeupOr wakeupOr;
     
+    public void instantiate(String prefabFile, Vector3f pos, Quat4d rot, Vector3f scale, BranchGroup branchGroup) {
+        Prefab prefab = new Prefab(prefabFile);
+        instantiation.add(prefab, pos, rot, scale, branchGroup);
+    }
+    
     public StandardScript() {
         setSchedulingBounds(Settings.INFINITE_BOUNDS);
-        instantiate = new Instantiation(new Prefab());
+        instantiation = new Instantiation();
     }
     
     @Override

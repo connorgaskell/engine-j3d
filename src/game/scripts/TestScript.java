@@ -40,7 +40,8 @@ public class TestScript extends StandardScript {
                 }
             }
         }
-
+        
+        //instantiate("Path/To/File", new Vector3f(0, 0, 0), new Quat4d(0, 0, 0, 0), new Vector3f(1, 1, 1), Engine.worldGroup);
     }
 
     @Override
