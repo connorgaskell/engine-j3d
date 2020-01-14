@@ -19,7 +19,7 @@ public class Prefab extends GameObject {
              * A Prefab file may include a mesh or a defined primitive object.
              * Location of the mesh should be parsed from the Prefab.
              */
-            File file = new File("");
+            File file = new File(".MeshPath");
             scene = objLoader.load(file.toURI().toURL());
         } catch (ParsingErrorException | MalformedURLException | FileNotFoundException e) { }
         

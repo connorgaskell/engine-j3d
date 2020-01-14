@@ -3,11 +3,11 @@ package engine.script;
 import engine.*;
 import engine.objects.Instantiation;
 import engine.objects.Prefab;
+import engine.objects.PrimitiveType;
 import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
-import javax.vecmath.Quat4d;
-import javax.vecmath.Vector3f;
+import javax.vecmath.*;
 
 public abstract class StandardScript extends Behavior implements KeyListener {
     private final Instantiation instantiation;
@@ -17,6 +17,10 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     public void instantiate(String prefabFile, Vector3f pos, Quat4d rot, Vector3f scale, BranchGroup branchGroup) {
         Prefab prefab = new Prefab(prefabFile);
         instantiation.add(prefab, pos, rot, scale, branchGroup);
+    }
+    
+    public void instantiate(PrimitiveType primitive, Vector3d pos, Quat4d rot, Vector3f scale, Color3f col) {
+        instantiation.add(primitive, pos, rot, scale, col);
     }
     
     public StandardScript() {

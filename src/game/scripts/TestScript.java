@@ -2,6 +2,8 @@ package game.scripts;
 
 import engine.core.Engine;
 import engine.objects.Camera;
+import engine.objects.GameObject;
+import engine.objects.PrimitiveType;
 import engine.objects.primitives.*;
 import engine.script.StandardScript;
 import java.awt.Color;
@@ -27,15 +29,15 @@ public class TestScript extends StandardScript {
             for(int z = -20; z < 20; z++) {
                 if(x % 2 == 0) {
                     if(z % 2 == 0) {
-                        new Plane(new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.WHITE), Engine.worldGroup, "Test");
+                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
                     } else {
-                        new Plane(new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.GRAY), Engine.worldGroup, "Test");
+                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
                     }
                 } else {
                     if(z % 2 == 0) {
-                        new Plane(new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.GRAY), Engine.worldGroup, "Test");
+                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
                     } else {
-                        new Plane(new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), 10, 10, new Color3f(Color.WHITE), Engine.worldGroup, "Test");
+                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
                     }
                 }
             }

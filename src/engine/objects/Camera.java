@@ -19,11 +19,12 @@ public class Camera {
     public Camera() {
         viewer = Engine.scene.getViewer();
         view = viewer.getView();
-        view.setBackClipDistance(Settings.RENDER_DISTANCE);
         view.setSceneAntialiasingEnable(true);
         view.setDepthBufferFreezeTransparent(true);
+        view.setWindowResizePolicy(View.VIRTUAL_WORLD);
+        view.setBackClipDistance(Settings.RENDER_DISTANCE);
         view.setTransparencySortingPolicy(View.PERSPECTIVE_PROJECTION);
-        view.setScreenScalePolicy(View.SCALE_EXPLICIT);
+        view.setScreenScalePolicy(View.SCALE_SCREEN_SIZE);
         view.setProjectionPolicy(View.PERSPECTIVE_PROJECTION);
         view.setWindowEyepointPolicy(View.RELATIVE_TO_FIELD_OF_VIEW);
         view.setFieldOfView(1.5f);
