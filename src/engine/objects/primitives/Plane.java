@@ -6,8 +6,8 @@ import javax.vecmath.*;
 
 public class Plane extends GameObject {
 
-    public Plane(Vector3d pos, Quat4d rot, double scaleX, double scaleZ, Color3f color, BranchGroup branchGroup, String planeName) {
-        Shape3D plane = createPlane(pos.x, pos.y, pos.z, scaleX, scaleZ);
+    public Plane(Vector3f pos, Quat4d rot, double scaleX, double scaleZ, Color3f color, BranchGroup branchGroup, String planeName) {
+        Shape3D plane = createPlane(pos.x * 2, pos.y * 2, pos.z * 2, scaleX * 1, scaleZ * 1);
         
         Appearance planeAppearance = new Appearance();
         planeAppearance.getRenderingAttributes();

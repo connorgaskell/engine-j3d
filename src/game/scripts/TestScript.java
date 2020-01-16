@@ -25,19 +25,23 @@ public class TestScript extends StandardScript {
         
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
+        
+        instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));
+        instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));
+        
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {
                 if(x % 2 == 0) {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
                     }
                 } else {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3d(x * 20, 0, z * 20), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
                     }
                 }
             }

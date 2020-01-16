@@ -1,6 +1,8 @@
 package engine.objects;
 
 import engine.core.Engine;
+import engine.objects.primitives.Ball;
+import engine.objects.primitives.Cube;
 import engine.objects.primitives.Plane;
 import javax.media.j3d.BranchGroup;
 import javax.vecmath.*;
@@ -26,10 +28,16 @@ public class Instantiation {
         branchGroup.addChild(gameObjectGroup);
     }
     
-    public void add(PrimitiveType primitive, Vector3d pos, Quat4d rot, Vector3f scale, Color3f col) {
+    public void add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, Color3f col) {
         switch(primitive) {
             case PLANE:
                 new Plane(pos, rot, scale.x, scale.z, col, Engine.worldGroup, "");
+                break;
+            case CUBE:
+                new Cube(pos, rot, scale, col, Engine.worldGroup, "");
+                break;
+            case SPHERE:
+                new Ball(pos, rot, scale.x, col, Engine.worldGroup, "");
                 break;
         }
     }

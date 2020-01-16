@@ -19,7 +19,7 @@ public abstract class StandardScript extends Behavior implements KeyListener {
         instantiation.add(prefab, pos, rot, scale, branchGroup);
     }
     
-    public void instantiate(PrimitiveType primitive, Vector3d pos, Quat4d rot, Vector3f scale, Color3f col) {
+    public void instantiate(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, Color3f col) {
         instantiation.add(primitive, pos, rot, scale, col);
     }
     
