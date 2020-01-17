@@ -6,9 +6,13 @@ import javax.vecmath.*;
 
 public class Ambient extends AmbientLight {
     
-    public Ambient(Color3f col) {
+    public Ambient(Color3f col, BranchGroup branchGroup) {
         setColor(col);
         setInfluencingBounds(Settings.INFINITE_BOUNDS);
+        
+        BranchGroup gameObjectGroup = new BranchGroup();
+        gameObjectGroup.addChild(this);
+        branchGroup.addChild(gameObjectGroup);
     }
     
     public void changeColor(Color3f color) {

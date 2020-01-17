@@ -1,5 +1,6 @@
 package game.scripts;
 
+import engine.materials.ObjectMaterial;
 import engine.objects.Camera;
 import engine.objects.PrimitiveType;
 import engine.objects.light.LightType;
@@ -24,24 +25,30 @@ public class TestScript extends StandardScript {
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
         
-        instantiate(LightType.DIRECTIONAL, new Point3f(0, 0, 0), new Color3f(Color.WHITE));
+        instantiate(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
+        instantiate(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
+        instantiate(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
         
-        instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));
-        instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));
+        ObjectMaterial redMaterial = new ObjectMaterial(new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), 1.0f);
+        ObjectMaterial grayMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(Color.BLACK), new Color3f(Color.GRAY), 1.0f);
+        ObjectMaterial whiteMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(Color.WHITE), new Color3f(Color.WHITE), new Color3f(Color.WHITE), 1.0f);
+        
+        instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
+        instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
         
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {
                 if(x % 2 == 0) {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), whiteMaterial);
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grayMaterial);
                     }
                 } else {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.GRAY));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grayMaterial);
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.WHITE));
+                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), whiteMaterial);
                     }
                 }
             }

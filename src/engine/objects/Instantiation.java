@@ -1,7 +1,9 @@
 package engine.objects;
 
 import engine.core.Engine;
+import engine.materials.ObjectMaterial;
 import engine.objects.light.Ambient;
+import engine.objects.light.Directional;
 import engine.objects.light.LightType;
 import engine.objects.light.Point;
 import engine.objects.primitives.Ball;
@@ -31,16 +33,16 @@ public class Instantiation {
         branchGroup.addChild(gameObjectGroup);
     }
     
-    public void add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, Color3f col) {
+    public void add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
         switch(primitive) {
             case PLANE:
-                new Plane(pos, rot, scale.x, scale.z, col, Engine.worldGroup, "");
+                new Plane(pos, rot, scale.x, scale.z, material, Engine.worldGroup, "");
                 break;
             case CUBE:
-                new Cube(pos, rot, scale, col, Engine.worldGroup, "");
+                new Cube(pos, rot, scale, material, Engine.worldGroup, "");
                 break;
             case SPHERE:
-                new Ball(pos, rot, scale.x, col, Engine.worldGroup, "");
+                new Ball(pos, rot, scale.x, material, Engine.worldGroup, "");
                 break;
         }
     }
@@ -48,13 +50,13 @@ public class Instantiation {
     public void add(LightType light, Point3f pos, Color3f col) {
         switch(light) {
             case AMBIENT:
-                new Ambient(col);
+                new Ambient(col, Engine.worldGroup);
                 break;
             case DIRECTIONAL:
-                
+                new Directional(new Vector3f(pos.x, pos.y, pos.z), col, Engine.worldGroup);
                 break;
             case POINT:
-                new Point(pos, col);
+                new Point(pos, col, Engine.worldGroup);
                 break;
         }
     }
