@@ -1,10 +1,8 @@
 package game.scripts;
 
-import engine.core.Engine;
 import engine.objects.Camera;
-import engine.objects.GameObject;
 import engine.objects.PrimitiveType;
-import engine.objects.primitives.*;
+import engine.objects.light.LightType;
 import engine.script.StandardScript;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -25,6 +23,8 @@ public class TestScript extends StandardScript {
         
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
+        
+        instantiate(LightType.DIRECTIONAL, new Point3f(0, 0, 0), new Color3f(Color.WHITE));
         
         instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));
         instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), new Color3f(Color.RED));

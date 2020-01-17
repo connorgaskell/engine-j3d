@@ -1,6 +1,9 @@
 package engine.objects;
 
 import engine.core.Engine;
+import engine.objects.light.Ambient;
+import engine.objects.light.LightType;
+import engine.objects.light.Point;
 import engine.objects.primitives.Ball;
 import engine.objects.primitives.Cube;
 import engine.objects.primitives.Plane;
@@ -38,6 +41,20 @@ public class Instantiation {
                 break;
             case SPHERE:
                 new Ball(pos, rot, scale.x, col, Engine.worldGroup, "");
+                break;
+        }
+    }
+    
+    public void add(LightType light, Point3f pos, Color3f col) {
+        switch(light) {
+            case AMBIENT:
+                new Ambient(col);
+                break;
+            case DIRECTIONAL:
+                
+                break;
+            case POINT:
+                new Point(pos, col);
                 break;
         }
     }

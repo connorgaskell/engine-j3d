@@ -6,8 +6,8 @@ import javax.vecmath.*;
 
 public class Ambient extends AmbientLight {
     
-    public Ambient() {
-        setColor(new Color3f(1.5f, 1.5f, 1.5f));
+    public Ambient(Color3f col) {
+        setColor(col);
         setInfluencingBounds(Settings.INFINITE_BOUNDS);
     }
     
