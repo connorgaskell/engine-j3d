@@ -10,6 +10,8 @@ import engine.objects.primitives.Ball;
 import engine.objects.primitives.Cube;
 import engine.objects.primitives.Plane;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Light;
+import javax.media.j3d.Shape3D;
 import javax.vecmath.*;
 
 /*
@@ -33,32 +35,30 @@ public class Instantiation {
         branchGroup.addChild(gameObjectGroup);
     }
     
-    public void add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
+    public GameObject add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
         switch(primitive) {
             case PLANE:
-                new Plane(pos, rot, scale.x, scale.z, material, Engine.worldGroup, "");
-                break;
+                return new Plane(pos, rot, scale.x, scale.z, material, Engine.worldGroup, "");
             case CUBE:
-                new Cube(pos, rot, scale, material, Engine.worldGroup, "");
-                break;
+                return new Cube(pos, rot, scale, material, Engine.worldGroup, "");
             case SPHERE:
-                new Ball(pos, rot, scale.x, material, Engine.worldGroup, "");
-                break;
+                return new Ball(pos, rot, scale.x, material, Engine.worldGroup, "");
         }
+        
+        return null;
     }
     
-    public void add(LightType light, Point3f pos, Color3f col) {
+    public Light add(LightType light, Point3f pos, Color3f col) {
         switch(light) {
             case AMBIENT:
-                new Ambient(col, Engine.worldGroup);
-                break;
+                return new Ambient(col, Engine.worldGroup);
             case DIRECTIONAL:
-                new Directional(new Vector3f(pos.x, pos.y, pos.z), col, Engine.worldGroup);
-                break;
+                return new Directional(new Vector3f(pos.x, pos.y, pos.z), col, Engine.worldGroup);
             case POINT:
-                new Point(pos, col, Engine.worldGroup);
-                break;
+                return new Point(pos, col, Engine.worldGroup);
         }
+        
+        return null;
     }
     
 }

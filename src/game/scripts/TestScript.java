@@ -2,12 +2,15 @@ package game.scripts;
 
 import engine.materials.ObjectMaterial;
 import engine.objects.Camera;
+import engine.objects.GameObject;
 import engine.objects.PrimitiveType;
 import engine.objects.light.LightType;
 import engine.script.StandardScript;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.*;
+import javax.media.j3d.Fog;
+import javax.media.j3d.Light;
 import javax.vecmath.*;
 
 public class TestScript extends StandardScript {
@@ -21,20 +24,27 @@ public class TestScript extends StandardScript {
         posX = camera.getPosition().x;
         posY = camera.getPosition().y;
         posZ = camera.getPosition().z;
+        camera.setPosition(new Vector3f(posX, posY + 200, posZ + 200));
         
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
         
-        instantiate(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
-        instantiate(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
-        instantiate(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
+        Fog fog1 = fog(new Color3f(Color.WHITE), 0.0025f);
+        fog1.setColor(new Color3f(Color.GRAY));
+        
+        sky("./res/example_sky.jpg");
+        
+        Light ambientLight = instantiate(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
+        Light directionalLight1 = instantiate(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
+        Light directionalLight2 = instantiate(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
         
         ObjectMaterial redMaterial = new ObjectMaterial(new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), 1.0f);
         ObjectMaterial grayMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(Color.BLACK), new Color3f(Color.GRAY), 1.0f);
         ObjectMaterial whiteMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(Color.WHITE), new Color3f(Color.WHITE), new Color3f(Color.WHITE), 1.0f);
         
-        instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
-        instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
+        GameObject cube = instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
+        cube.setPosition(new Vector3f(20, 10, -20));
+        GameObject sphere = instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
         
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {

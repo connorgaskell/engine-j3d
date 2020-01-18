@@ -2,10 +2,13 @@ package engine.script;
 
 import engine.*;
 import engine.materials.ObjectMaterial;
+import engine.objects.GameObject;
 import engine.objects.Instantiation;
 import engine.objects.Prefab;
 import engine.objects.PrimitiveType;
 import engine.objects.light.LightType;
+import engine.scene.SceneFog;
+import engine.scene.Sky;
 import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
@@ -21,12 +24,22 @@ public abstract class StandardScript extends Behavior implements KeyListener {
         instantiation.add(prefab, pos, rot, scale, branchGroup);
     }
     
-    public void instantiate(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
-        instantiation.add(primitive, pos, rot, scale, material);
+    public GameObject instantiate(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
+        return instantiation.add(primitive, pos, rot, scale, material);
     }
     
-    public void instantiate(LightType light, Point3f pos, Color3f col) {
-        instantiation.add(light, pos, col);
+    public Light instantiate(LightType light, Point3f pos, Color3f col) {
+        return instantiation.add(light, pos, col);
+    }
+    
+    public Fog fog(Color3f col, float density) {
+        SceneFog sceneFog = new SceneFog();
+        return sceneFog.addExponentialFog(col, density);
+    }
+    
+    public void sky(String texture) {
+        Sky sky = new Sky();
+        sky.setSky(texture);
     }
     
     public StandardScript() {

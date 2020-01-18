@@ -9,6 +9,7 @@ public class Ambient extends AmbientLight {
     public Ambient(Color3f col, BranchGroup branchGroup) {
         setColor(col);
         setInfluencingBounds(Settings.INFINITE_BOUNDS);
+        setCapability(Light.ALLOW_COLOR_WRITE);
         
         BranchGroup gameObjectGroup = new BranchGroup();
         gameObjectGroup.addChild(this);
