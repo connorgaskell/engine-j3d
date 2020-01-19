@@ -45,6 +45,8 @@ public class TestScript extends StandardScript {
         GameObject cube = instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
         cube.setPosition(new Vector3f(20, 10, -20));
         GameObject sphere = instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), redMaterial);
+        GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), redMaterial);
+        GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), redMaterial);
         
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {

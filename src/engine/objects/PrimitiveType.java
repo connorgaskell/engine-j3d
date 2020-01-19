@@ -4,6 +4,6 @@ public enum PrimitiveType {
     PLANE,
     CUBE,
     SPHERE,
-    PYRAMID,
-    SLOPE
+    CONE,
+    CYLINDER
 }

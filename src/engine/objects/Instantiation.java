@@ -7,7 +7,9 @@ import engine.objects.light.Directional;
 import engine.objects.light.LightType;
 import engine.objects.light.Point;
 import engine.objects.primitives.Ball;
+import engine.objects.primitives.ConeObject;
 import engine.objects.primitives.Cube;
+import engine.objects.primitives.CylinderObject;
 import engine.objects.primitives.Plane;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.Light;
@@ -43,6 +45,10 @@ public class Instantiation {
                 return new Cube(pos, rot, scale, material, Engine.worldGroup, "");
             case SPHERE:
                 return new Ball(pos, rot, scale.x, material, Engine.worldGroup, "");
+            case CONE:
+                return new ConeObject(pos, rot, scale, material, Engine.worldGroup, "");
+            case CYLINDER:
+                return new CylinderObject(pos, rot, scale, material, Engine.worldGroup, "");
         }
         
         return null;
