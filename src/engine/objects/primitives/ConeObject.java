@@ -13,7 +13,7 @@ public class ConeObject extends GameObject {
     public Shape3D coneObject;
     
     public ConeObject(Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material, BranchGroup branchGroup, String name) {
-        coneObject = new Cone(scale.x, scale.y, material).getShape(Cone.BODY);//new ConeObject(scale, Sphere.GENERATE_NORMALS | Sphere.GENERATE_TEXTURE_COORDS, 50).getShape();
+        coneObject = new Cone(scale.x, scale.y, Cone.GENERATE_NORMALS | Cone.GENERATE_TEXTURE_COORDS, material).getShape(Cone.BODY);
         coneObject.setAppearance(material);
         
         bounds.addChild(coneObject.getParent());

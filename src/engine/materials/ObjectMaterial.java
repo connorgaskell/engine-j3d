@@ -3,6 +3,7 @@ package engine.materials;
 import com.sun.j3d.utils.image.TextureLoader;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.Material;
+import javax.media.j3d.TextureAttributes;
 import javax.vecmath.Color3f;
 
 public class ObjectMaterial extends Appearance {
@@ -16,6 +17,10 @@ public class ObjectMaterial extends Appearance {
             TextureLoader objectTexture = new TextureLoader(texture, null);
             setTexture(objectTexture.getTexture());
         } catch(NullPointerException e) { }
+        
+        TextureAttributes texAttr = new TextureAttributes();
+        texAttr.setTextureMode(TextureAttributes.MODULATE);
+        setTextureAttributes(texAttr);
     }
     
     public ObjectMaterial(Color3f ambientColor, Color3f emissionColor, Color3f diffuseColor, Color3f specularColor, float lightIntensity) {

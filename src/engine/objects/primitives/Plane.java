@@ -20,8 +20,13 @@ public class Plane extends GameObject {
     }
 
     private Shape3D createPlane(double posX, double posY, double posZ, double scaleX, double scaleZ, ObjectMaterial material) {
-        QuadArray quadArray = new QuadArray(4, QuadArray.COORDINATES | QuadArray.NORMALS);
+        QuadArray quadArray = new QuadArray(4, QuadArray.COORDINATES | QuadArray.NORMALS | QuadArray.TEXTURE_COORDINATE_2);
 
+        quadArray.setTextureCoordinate (0, new Point2f(0.0f,0.0f));
+	quadArray.setTextureCoordinate (1, new Point2f(1.0f,0.0f)); 
+    	quadArray.setTextureCoordinate (2, new Point2f(1.0f,1.0f));
+    	quadArray.setTextureCoordinate (3, new Point2f(0.0f,1.0f));
+        
         quadArray.setCoordinate(0, new Point3d(-scaleX + posX, posY, scaleZ + posZ));
         quadArray.setCoordinate(1, new Point3d(scaleX + posX, posY, scaleZ + posZ));
         quadArray.setCoordinate(2, new Point3d(scaleX + posX, posY, -scaleZ + posZ));

@@ -13,7 +13,7 @@ public class CylinderObject extends GameObject {
     public Shape3D cylinderObject;
     
     public CylinderObject(Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material, BranchGroup branchGroup, String name) {
-        cylinderObject = new Cylinder(scale.x, scale.y, material).getShape(Cylinder.TOP);
+        cylinderObject = new Cylinder(scale.x, scale.y, Cylinder.GENERATE_NORMALS | Cylinder.GENERATE_TEXTURE_COORDS, material).getShape(Cylinder.TOP);
         cylinderObject.setAppearance(material);
         
         bounds.addChild(cylinderObject.getParent());
