@@ -2,13 +2,11 @@ package engine.script;
 
 import engine.*;
 import engine.materials.ObjectMaterial;
-import engine.objects.GameObject;
-import engine.objects.Instantiation;
-import engine.objects.Prefab;
-import engine.objects.PrimitiveType;
+import engine.objects.*;
 import engine.objects.light.LightType;
 import engine.scene.SceneFog;
 import engine.scene.Sky;
+import engine.util.RandomRange;
 import java.awt.event.KeyListener;
 import java.util.*;
 import javax.media.j3d.*;
@@ -40,6 +38,16 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     public void sky(String texture) {
         Sky sky = new Sky();
         sky.setSky(texture);
+    }
+    
+    public float randomFloat(float min, float max) {
+        RandomRange rand = new RandomRange();
+        return rand.randomFloat(min, max);
+    }
+    
+    public int randomInt(int min, int max) {
+        RandomRange rand = new RandomRange();
+        return rand.randomInteger(min, max);
     }
     
     public StandardScript() {

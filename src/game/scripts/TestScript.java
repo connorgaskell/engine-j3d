@@ -16,6 +16,7 @@ import javax.vecmath.*;
 public class TestScript extends StandardScript {
 
     private Camera camera;
+    private GameObject cube;
     private final Set<Character> pressed = new HashSet<Character>();
     
     @Override
@@ -28,6 +29,9 @@ public class TestScript extends StandardScript {
         
         System.out.println(camera.getPosition());
         System.out.println("This message will appear once when the program starts.");
+        
+        System.out.println(randomFloat(0, 10));
+        System.out.println(randomInt(0, 10));
         
         Fog fog1 = fog(new Color3f(Color.WHITE), 0.0025f);
         fog1.setColor(new Color3f(Color.GRAY));
@@ -46,7 +50,7 @@ public class TestScript extends StandardScript {
         ObjectMaterial grayMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(Color.BLACK), new Color3f(Color.GRAY), 1.0f);
         ObjectMaterial whiteMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(Color.WHITE), new Color3f(Color.WHITE), new Color3f(Color.WHITE), 1.0f);
         
-        GameObject cube = instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), texturedMaterial);
+        cube = instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), texturedMaterial);
         cube.setPosition(new Vector3f(20, 10, -20));
         GameObject sphere = instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), texturedMaterial);
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
@@ -82,6 +86,7 @@ public class TestScript extends StandardScript {
     public void frameUpdate() {
         //camera.lookAt(new Point3d(rotX, rotY, rotZ));
         //camera.setPosition(new Vector3f(posX, posY, posZ));
+        cube.setPosition(new Vector3f(0, 10, cube.getPosition().z + 0.1f));
     }
 
     @Override
