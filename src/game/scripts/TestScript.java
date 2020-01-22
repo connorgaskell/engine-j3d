@@ -5,6 +5,7 @@ import engine.objects.Camera;
 import engine.objects.GameObject;
 import engine.objects.PrimitiveType;
 import engine.objects.light.LightType;
+import engine.objects.primitives.Text3D;
 import engine.script.StandardScript;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -17,6 +18,8 @@ public class TestScript extends StandardScript {
 
     private Camera camera;
     private GameObject cube;
+    private Text3D text;
+    private int count = 0;
     private final Set<Character> pressed = new HashSet<Character>();
     
     @Override
@@ -37,7 +40,7 @@ public class TestScript extends StandardScript {
         fog1.setColor(new Color3f(Color.GRAY));
         
         sky("./res/example_sky.jpg");
-        
+   
         Light ambientLight = instantiate(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
         Light directionalLight1 = instantiate(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
         Light directionalLight2 = instantiate(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
@@ -49,12 +52,15 @@ public class TestScript extends StandardScript {
         ObjectMaterial redMaterial = new ObjectMaterial(new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), 1.0f);
         ObjectMaterial grayMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(Color.BLACK), new Color3f(Color.GRAY), 1.0f);
         ObjectMaterial whiteMaterial = new ObjectMaterial(new Color3f(Color.BLACK), new Color3f(Color.WHITE), new Color3f(Color.WHITE), new Color3f(Color.WHITE), 1.0f);
+        ObjectMaterial blueMaterial = new ObjectMaterial(new Color3f(Color.BLUE), new Color3f(Color.BLUE), new Color3f(Color.BLUE), new Color3f(Color.BLUE), 1.0f);
         
         cube = instantiate(PrimitiveType.CUBE, new Vector3f(0, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), texturedMaterial);
         cube.setPosition(new Vector3f(20, 10, -20));
         GameObject sphere = instantiate(PrimitiveType.SPHERE, new Vector3f(20, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), texturedMaterial);
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
+        
+        text = text3d("Hello, world!", new Vector3f(0, 5, -100), blueMaterial);
         
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {
@@ -87,6 +93,7 @@ public class TestScript extends StandardScript {
         //camera.lookAt(new Point3d(rotX, rotY, rotZ));
         //camera.setPosition(new Vector3f(posX, posY, posZ));
         cube.setPosition(new Vector3f(0, 10, cube.getPosition().z + 0.1f));
+        text.setText("Elapsed Frames: " + Integer.toString(count++));
     }
 
     @Override

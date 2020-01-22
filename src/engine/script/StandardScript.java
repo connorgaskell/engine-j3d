@@ -1,6 +1,7 @@
 package engine.script;
 
 import engine.*;
+import engine.core.Engine;
 import engine.materials.ObjectMaterial;
 import engine.objects.*;
 import engine.objects.light.LightType;
@@ -8,6 +9,7 @@ import engine.scene.SceneFog;
 import engine.scene.Sky;
 import engine.util.RandomRange;
 import java.awt.event.KeyListener;
+import engine.objects.primitives.Text3D;
 import java.util.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
@@ -28,6 +30,10 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     
     public Light instantiate(LightType light, Point3f pos, Color3f col) {
         return instantiation.add(light, pos, col);
+    }
+    
+    public Text3D text3d(String text, Vector3f pos, ObjectMaterial material) {
+        return new engine.objects.primitives.Text3D(text, pos, material, Engine.worldGroup);
     }
     
     public Fog fog(Color3f col, float density) {

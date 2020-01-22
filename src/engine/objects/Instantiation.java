@@ -53,7 +53,7 @@ public class Instantiation {
         
         return null;
     }
-    
+
     public Light add(LightType light, Point3f pos, Color3f col) {
         switch(light) {
             case AMBIENT:
