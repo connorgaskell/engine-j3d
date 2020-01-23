@@ -37,6 +37,10 @@ public class Instantiation {
         branchGroup.addChild(gameObjectGroup);
     }
     
+    public GameObject add(String path, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
+        return new LoadOBJ(path, pos, rot, scale, Engine.worldGroup);
+    }
+    
     public GameObject add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
         switch(primitive) {
             case PLANE:

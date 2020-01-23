@@ -60,6 +60,9 @@ public class TestScript extends StandardScript {
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         
+        GameObject imported = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(50, 50, 50), texturedMaterial);
+        imported.setPosition(new Vector3f(100, 50, 0));
+        
         text = text3d("Hello, world!", new Vector3f(0, 5, -100), blueMaterial);
         
         for(int x = -20; x < 20; x++) {
