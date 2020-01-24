@@ -36,14 +36,16 @@ public class TestScript extends StandardScript {
         System.out.println(randomFloat(0, 10));
         System.out.println(randomInt(0, 10));
         
-        Fog fog1 = fog(new Color3f(Color.WHITE), 0.0025f);
-        fog1.setColor(new Color3f(Color.GRAY));
+        Fog expFog = fog(new Color3f(Color.WHITE), 0.0025f);
+        expFog.setColor(new Color3f(Color.GRAY));
+        
+        //Fog linearFog = fog(new Color3f(Color.WHITE), 50.0f, 200.5f);
         
         sky("./res/example_sky.jpg");
    
-        Light ambientLight = instantiate(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
-        Light directionalLight1 = instantiate(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
-        Light directionalLight2 = instantiate(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
+        Light ambientLight = light(LightType.AMBIENT, new Point3f(5, 20, 5f), new Color3f(0.25f, 0.25f, 0.25f));
+        Light directionalLight1 = light(LightType.DIRECTIONAL, new Point3f(0f, -1f, 0f), new Color3f(1f, 1f, 1f));
+        Light directionalLight2 = light(LightType.DIRECTIONAL, new Point3f(-2f, -1f, -1f), new Color3f(1f, 1f, 1f));
         
         ObjectMaterial texturedMaterial = new ObjectMaterial(new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), new Color3f(0.7f, .15f, .15f), new Color3f(0.0f, 0.0f, 0.0f), 1.0f, "./res/wrapping_paper.jpg");
         ObjectMaterial grassTexture = new ObjectMaterial(new Color3f(1.0f, 1.0f, 1.0f), new Color3f(1.0f, 1.0f, 1.0f), new Color3f(1.0f, 1.0f, 1.0f), new Color3f(0.0f, 0.0f, 0.0f), 1.0f, "./res/grass.png");
@@ -60,8 +62,8 @@ public class TestScript extends StandardScript {
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         
-        GameObject imported = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(50, 50, 50), texturedMaterial);
-        imported.setPosition(new Vector3f(100, 50, 0));
+        GameObject imported = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(25, 25, 25), texturedMaterial);
+        imported.setPosition(new Vector3f(100, 25, 0));
         
         text = text3d("Hello, world!", new Vector3f(0, 5, -100), blueMaterial);
         

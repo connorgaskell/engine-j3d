@@ -22,10 +22,6 @@ public class LoadOBJ extends GameObject {
         Scene scene = null;
         
         try {
-            /*
-             * A Prefab file may include a mesh or a defined primitive object.
-             * Location of the mesh should be parsed from the Prefab.
-             */
             File file = new File(path);
             scene = objLoader.load(file.toURI().toURL());
         } catch (ParsingErrorException | MalformedURLException | FileNotFoundException e) { }
@@ -39,9 +35,6 @@ public class LoadOBJ extends GameObject {
         shape = (Shape3D)tempGroup.getChild(0);
         
         Transform3D scaleTransform = new Transform3D();
-        /*
-         * Scale is to be parsed from the Prefab.
-         */
         scaleTransform.setScale(new Vector3d(scale.x, scale.y, scale.z));
         bounds.setTransform(scaleTransform);
         bounds.addChild(shape.getParent());

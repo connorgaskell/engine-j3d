@@ -32,7 +32,7 @@ public abstract class StandardScript extends Behavior implements KeyListener {
         return instantiation.add(primitive, pos, rot, scale, material);
     }
     
-    public Light instantiate(LightType light, Point3f pos, Color3f col) {
+    public Light light(LightType light, Point3f pos, Color3f col) {
         return instantiation.add(light, pos, col);
     }
     
@@ -43,6 +43,11 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     public Fog fog(Color3f col, float density) {
         SceneFog sceneFog = new SceneFog();
         return sceneFog.addExponentialFog(col, density);
+    }
+    
+    public Fog fog(Color3f col, float frontDistance, float backDistance) {
+        SceneFog sceneFog = new SceneFog();
+        return sceneFog.addLinearFog(col, frontDistance, backDistance);
     }
     
     public void sky(String texture) {

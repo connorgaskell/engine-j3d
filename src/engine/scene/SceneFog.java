@@ -26,7 +26,7 @@ public class SceneFog {
     
     public Fog addLinearFog(Color3f col, float frontDistance, float backDistance) {
         LinearFog fog = new LinearFog();
-        fog.setColor(null);
+        fog.setColor(col);
         fog.setFrontDistance(frontDistance);
         fog.setBackDistance(backDistance);
         
