@@ -19,6 +19,10 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     private WakeupCriterion[] wakeupCriterion;
     private WakeupOr wakeupOr;
     
+    public Point3d mousePosition() {
+        return Engine.mousePick.get3DIntercept();
+    }
+    
     public void instantiate(String prefabFile, Vector3f pos, Quat4d rot, Vector3f scale, BranchGroup branchGroup) {
         Prefab prefab = new Prefab(prefabFile);
         instantiation.add(prefab, pos, rot, scale, branchGroup);

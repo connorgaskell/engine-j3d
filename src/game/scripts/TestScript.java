@@ -99,6 +99,7 @@ public class TestScript extends StandardScript {
         //camera.setPosition(new Vector3f(posX, posY, posZ));
         cube.setPosition(new Vector3f(0, 10, cube.getPosition().z + 0.1f));
         text.setText("Elapsed Frames: " + Integer.toString(count++));
+        System.out.println(mousePosition());
     }
 
     @Override

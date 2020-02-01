@@ -2,6 +2,7 @@ package engine.core;
 
 import com.sun.j3d.utils.universe.*;
 import engine.*;
+import engine.behaviors.Pick;
 import engine.script.*;
 import java.awt.*;
 import java.util.*;
@@ -13,8 +14,9 @@ public class Engine extends JPanel {
     public static SimpleUniverse scene;
     public static BranchGroup rootGroup, worldGroup, fogGroup;
     public static ArrayList<Node> nodeList = new ArrayList<>();
+    public static Pick mousePick;
     
-    private void createBranches() {
+    private void createBranches(Canvas3D canvas) {
         rootGroup = new BranchGroup();
         rootGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         rootGroup.setName("rootGroup");
@@ -27,6 +29,9 @@ public class Engine extends JPanel {
 
         rootGroup.addChild(worldGroup);
         rootGroup.addChild(fogGroup);
+        
+        mousePick = new Pick(canvas, rootGroup, Settings.INFINITE_BOUNDS);
+        rootGroup.addChild(mousePick);
         
         loadScripts();
         rootGroup.compile();
@@ -69,7 +74,7 @@ public class Engine extends JPanel {
         
         scene = new SimpleUniverse(canvas);
 
-        createBranches();
+        createBranches(canvas);
         
         add("Center", canvas);
 
