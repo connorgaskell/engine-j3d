@@ -44,7 +44,7 @@ public class Instantiation {
     public GameObject add(PrimitiveType primitive, Vector3f pos, Quat4d rot, Vector3f scale, ObjectMaterial material) {
         switch(primitive) {
             case PLANE:
-                return new Plane(pos, rot, scale.x, scale.z, material, Engine.worldGroup, "");
+                return new Plane(pos, rot, scale.x, scale.z, material, Engine.worldGroup, "Floor");
             case CUBE:
                 return new Cube(pos, rot, scale, material, Engine.worldGroup, "");
             case SPHERE:

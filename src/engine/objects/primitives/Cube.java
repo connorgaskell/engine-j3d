@@ -17,6 +17,7 @@ public class Cube extends GameObject {
         setPosition(pos);
         setRotation(rot);
         this.name = name;
+        cubeObject.setName(name);
         
         BranchGroup gameObjectGroup = new BranchGroup();
         gameObjectGroup.addChild(gameObject);

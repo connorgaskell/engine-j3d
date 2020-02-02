@@ -2,7 +2,6 @@ package engine.core;
 
 import com.sun.j3d.utils.universe.*;
 import engine.*;
-import engine.behaviors.Pick;
 import engine.script.*;
 import java.awt.*;
 import java.util.*;
@@ -14,9 +13,9 @@ public class Engine extends JPanel {
     public static SimpleUniverse scene;
     public static BranchGroup rootGroup, worldGroup, fogGroup;
     public static ArrayList<Node> nodeList = new ArrayList<>();
-    public static Pick mousePick;
+    public static Canvas3D canvas;
     
-    private void createBranches(Canvas3D canvas) {
+    private void createBranches() {
         rootGroup = new BranchGroup();
         rootGroup.setCapability(Group.ALLOW_CHILDREN_EXTEND);
         rootGroup.setName("rootGroup");
@@ -29,9 +28,6 @@ public class Engine extends JPanel {
 
         rootGroup.addChild(worldGroup);
         rootGroup.addChild(fogGroup);
-        
-        mousePick = new Pick(canvas, rootGroup, Settings.INFINITE_BOUNDS);
-        rootGroup.addChild(mousePick);
         
         loadScripts();
         rootGroup.compile();
@@ -51,7 +47,7 @@ public class Engine extends JPanel {
         configTemplate3D.setSceneAntialiasing(GraphicsConfigTemplate.PREFERRED);
         GraphicsConfiguration config = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getBestConfiguration(configTemplate3D);
 
-        Canvas3D canvas = new Canvas3D(config) {
+        canvas = new Canvas3D(config) {
             Graphics2D g = this.getGraphics2D();
 
             @Override
@@ -74,7 +70,7 @@ public class Engine extends JPanel {
         
         scene = new SimpleUniverse(canvas);
 
-        createBranches(canvas);
+        createBranches();
         
         add("Center", canvas);
 

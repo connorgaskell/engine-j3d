@@ -5,6 +5,7 @@ import com.sun.j3d.utils.picking.PickCanvas;
 import java.awt.AWTEvent;
 import java.awt.Event;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.media.j3d.Behavior;
@@ -15,12 +16,11 @@ import javax.media.j3d.TransformGroup;
 import javax.media.j3d.WakeupCriterion;
 import javax.media.j3d.WakeupOnAWTEvent;
 import javax.media.j3d.WakeupOr;
-import javax.vecmath.Point3d;
-
 
 public abstract class PickMouseBehavior extends Behavior {
     protected PickCanvas pickCanvas;
-
+    protected ArrayList<String> layers;
+    
     protected WakeupCriterion[] conditions;
     protected WakeupOr wakeupCondition;
     protected boolean buttonPress = false;
@@ -29,13 +29,10 @@ public abstract class PickMouseBehavior extends Behavior {
     protected static final boolean debug = false;
     protected MouseEvent mevent;
 
-    public PickMouseBehavior(Canvas3D canvas, BranchGroup root, Bounds bounds){
+    public PickMouseBehavior(Canvas3D canvas, BranchGroup root, Bounds bounds, ArrayList<String> layers){
         super();
-        currGrp = new TransformGroup();
-        currGrp.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-        currGrp.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-        root.addChild(currGrp);
         pickCanvas = new PickCanvas(canvas, root);
+        this.layers = layers;
     }
 
     @Override
@@ -68,12 +65,10 @@ public abstract class PickMouseBehavior extends Behavior {
             yPos = mevent.getPoint().y;
         }
 
-        if (buttonPress){
-            //updateScene(xPos, yPos);
-        }
+        updateScene(xPos, yPos, layers);
         
         wakeupOn (wakeupCondition);
     }
 
-    public abstract void updateScene(int xPos, int yPos);
+    public abstract void updateScene(int xPos, int yPos, ArrayList<String> layers);
 }

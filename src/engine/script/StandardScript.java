@@ -1,6 +1,7 @@
 package engine.script;
 
 import engine.*;
+import engine.behaviors.Pick;
 import engine.core.Engine;
 import engine.materials.ObjectMaterial;
 import engine.objects.*;
@@ -22,8 +23,21 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     private WakeupCriterion[] wakeupCriterion;
     private WakeupOr wakeupOr;
     
-    public Point3d mousePosition() {
-        return Engine.mousePick.get3DIntercept();
+    public Vector3f mousePosition(Pick mouse) {
+        if(mouse.get3DIntercept() == null) {
+            return new Vector3f(0, 0, 0);
+        } else {
+            return new Vector3f(mouse.get3DIntercept());
+        }
+    }
+    
+    public Pick enableMouse(ArrayList<String> layers) {
+        Pick mousePick = new Pick(Engine.canvas, Engine.rootGroup, Settings.INFINITE_BOUNDS, layers);
+        
+        BranchGroup gameObjectGroup = new BranchGroup();
+        gameObjectGroup.addChild(mousePick);
+        Engine.rootGroup.addChild(gameObjectGroup);
+        return mousePick;
     }
 
     public void instantiate(String prefabFile, Vector3f pos, Quat4d rot, Vector3f scale, BranchGroup branchGroup) {

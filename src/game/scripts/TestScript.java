@@ -1,5 +1,6 @@
 package game.scripts;
 
+import engine.behaviors.Pick;
 import engine.materials.ObjectMaterial;
 import engine.objects.Camera;
 import engine.objects.GameObject;
@@ -18,14 +19,20 @@ import javax.vecmath.*;
 public class TestScript extends StandardScript {
 
     private Camera camera;
-    private GameObject cube;
-    private Text3D text;
+    private Pick mouse;
+    private GameObject cube, humanoid;
+    private Text3D text, mousePosText;
     private int count = 0;
     private final Set<Character> pressed = new HashSet<Character>();
     
     @Override
     public void start() {
         camera = new Camera();
+        
+        ArrayList<String> layers = new ArrayList<>();
+        layers.add("Floor");
+        
+        mouse = enableMouse(layers);
         posX = camera.getPosition().x;
         posY = camera.getPosition().y;
         posZ = camera.getPosition().z;
@@ -63,10 +70,12 @@ public class TestScript extends StandardScript {
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         
-        GameObject imported = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(25, 25, 25), texturedMaterial);
-        imported.setPosition(new Vector3f(100, 25, 0));
+        humanoid = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(25, 25, 25), texturedMaterial);
+        humanoid.setPosition(new Vector3f(100, 25, 0));
+        humanoid.setPickable(false);
         
         text = text3d("Hello, world!", new Vector3f(0, 5, -100), blueMaterial);
+        mousePosText = text3d("", new Vector3f(-200, 5, -100), blueMaterial);
         
         for(int x = -20; x < 20; x++) {
             for(int z = -20; z < 20; z++) {
@@ -93,13 +102,18 @@ public class TestScript extends StandardScript {
     public void update() {
         //System.out.println("This message will appear every 1ms");
         text.setText("Elapsed Time: " + Integer.toString((count++) / 60) + "s");
+        mousePosText.setText("Mouse: " + Integer.toString((int)Math.floor(mousePosition(mouse).x)) + ", " + Integer.toString((int)Math.floor(mousePosition(mouse).y)) + ", " + Integer.toString((int)Math.floor(mousePosition(mouse).z)));
+        //text.setText(Integer.toString((int)Math.floor(mousePosition().x)));
     }
 
     @Override
     public void frameUpdate() {
         //camera.lookAt(new Point3d(rotX, rotY, rotZ));
         //camera.setPosition(new Vector3f(posX, posY, posZ));
-        cube.setPosition(new Vector3f(0, 10, cube.getPosition().z + 0.1f));
+        //cube.setPosition(new Vector3f(cube.getPosition().x, cube.getPosition().y, cube.getPosition().z + 0.1f));
+        //cube.setPosition(new Vector3f(mousePosition().x, 0, mousePosition().z));
+        cube.setRotation(new Quat4d(0, cube.getRotation().y + 0.1f, 0, 1));
+        //System.out.println(mousePosition().x);
         //System.out.println(mousePosition());
         
     }
@@ -170,6 +184,7 @@ public class TestScript extends StandardScript {
     @Override
     public void onMousePress(MouseEvent evt) {
         System.out.println(evt);
+        humanoid.setPosition(new Vector3f((float)mousePosition(mouse).x, humanoid.getPosition().y, (float)mousePosition(mouse).z));
     }
     
     @Override
@@ -179,7 +194,7 @@ public class TestScript extends StandardScript {
 
     @Override
     public void onMouseMove(MouseEvent evt) {
-        
+
     }
 
 }

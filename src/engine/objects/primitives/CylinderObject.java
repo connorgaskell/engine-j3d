@@ -19,6 +19,7 @@ public class CylinderObject extends GameObject {
         bounds.addChild(cylinderObject.getParent());
 
         setPosition(pos);
+        setRotation(rot);
 
         BranchGroup gameObjectGroup = new BranchGroup();
         gameObjectGroup.addChild(gameObject);
