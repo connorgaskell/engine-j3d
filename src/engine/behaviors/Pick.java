@@ -9,6 +9,10 @@ public class Pick extends PickMouseBehavior {
 
     private Point3d intercept;
     
+    public Point3d get3DIntercept() {
+        return intercept;
+    }
+    
     public Pick(Canvas3D canvas3D, BranchGroup branchGroup, Bounds bounds) {
         super(canvas3D, branchGroup, bounds);
         setSchedulingBounds(Settings.INFINITE_BOUNDS);
@@ -28,10 +32,6 @@ public class Pick extends PickMouseBehavior {
             PickIntersection pickIntersection = pickResult.getClosestIntersection(eyePos);
             intercept = pickIntersection.getPointCoordinatesVW();
         }
-    }
-    
-    public Point3d get3DIntercept() {
-        return intercept;
     }
     
 }

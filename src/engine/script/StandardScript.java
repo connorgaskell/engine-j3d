@@ -10,6 +10,9 @@ import engine.scene.Sky;
 import engine.util.RandomRange;
 import java.awt.event.KeyListener;
 import engine.objects.primitives.Text3D;
+import java.awt.AWTEvent;
+import java.awt.Event;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
@@ -22,7 +25,7 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     public Point3d mousePosition() {
         return Engine.mousePick.get3DIntercept();
     }
-    
+
     public void instantiate(String prefabFile, Vector3f pos, Quat4d rot, Vector3f scale, BranchGroup branchGroup) {
         Prefab prefab = new Prefab(prefabFile);
         instantiation.add(prefab, pos, rot, scale, branchGroup);
@@ -69,6 +72,16 @@ public abstract class StandardScript extends Behavior implements KeyListener {
         return rand.randomInteger(min, max);
     }
     
+    public void processMouseEvent(MouseEvent evt) {
+        if (evt.getID() == MouseEvent.MOUSE_PRESSED) {
+            onMousePress(evt);
+        } else if (evt.getID() == MouseEvent.MOUSE_RELEASED) {
+            onMouseRelease(evt);
+        } else if (evt.getID() == MouseEvent.MOUSE_MOVED) {
+            onMouseMove(evt);
+        }
+    }
+    
     public StandardScript() {
         setSchedulingBounds(Settings.INFINITE_BOUNDS);
         instantiation = new Instantiation();
@@ -76,9 +89,12 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     
     @Override
     public void initialize() {
-        wakeupCriterion = new WakeupCriterion[2];
+        wakeupCriterion = new WakeupCriterion[5];
         wakeupCriterion[0] = new WakeupOnElapsedFrames(0);
         wakeupCriterion[1] = new WakeupOnElapsedTime(1);
+        wakeupCriterion[2] = new WakeupOnAWTEvent(Event.MOUSE_MOVE);
+        wakeupCriterion[3] = new WakeupOnAWTEvent(Event.MOUSE_DOWN);
+        wakeupCriterion[4] = new WakeupOnAWTEvent(Event.MOUSE_UP);
         
         wakeupOr = new WakeupOr(wakeupCriterion);
         wakeupOn(wakeupOr);
@@ -87,12 +103,21 @@ public abstract class StandardScript extends Behavior implements KeyListener {
 
     @Override
     public void processStimulus(Enumeration criteria) {
-        WakeupCriterion criterion = (WakeupCriterion)criteria.nextElement();
+        AWTEvent[] evt = null;
+        WakeupCriterion criterion;
 
-        if(criterion instanceof WakeupOnElapsedFrames) {
-            frameUpdate();
-        } else if(criterion instanceof WakeupOnElapsedTime) {
-            update();
+        while(criteria.hasMoreElements()) {
+            criterion = (WakeupCriterion)criteria.nextElement();
+            if(criterion instanceof WakeupOnElapsedFrames) {
+                frameUpdate();
+            } else if(criterion instanceof WakeupOnElapsedTime) {
+                update();
+            } else if (criterion instanceof WakeupOnAWTEvent) {
+                evt = ((WakeupOnAWTEvent)criterion).getAWTEvent();
+                if (evt[0] instanceof MouseEvent){
+                    processMouseEvent((MouseEvent)evt[0]);
+                }
+            }
         }
         
         wakeupOn(wakeupOr);
@@ -102,5 +127,7 @@ public abstract class StandardScript extends Behavior implements KeyListener {
     public abstract void update();
     public abstract void frameUpdate();
     public abstract void lateUpdate();
-    
+    public abstract void onMousePress(MouseEvent evt);
+    public abstract void onMouseRelease(MouseEvent evt);
+    public abstract void onMouseMove(MouseEvent evt);
 }

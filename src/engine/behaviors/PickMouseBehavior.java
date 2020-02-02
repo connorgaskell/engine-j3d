@@ -40,7 +40,6 @@ public abstract class PickMouseBehavior extends Behavior {
 
     @Override
     public void initialize() {
-
         conditions = new WakeupCriterion[2];
         conditions[0] = new WakeupOnAWTEvent(Event.MOUSE_MOVE);
         conditions[1] = new WakeupOnAWTEvent(Event.MOUSE_DOWN);
@@ -49,31 +48,11 @@ public abstract class PickMouseBehavior extends Behavior {
         wakeupOn(wakeupCondition);
     }
 
-    private void processMouseEvent(MouseEvent evt) {
-        buttonPress = false;
-
-        if (evt.getID() == MouseEvent.MOUSE_PRESSED | evt.getID() == MouseEvent.MOUSE_CLICKED) {
-            switch(evt.getButton()) {
-                case MouseEvent.BUTTON1:
-                    break;
-                    
-                case MouseEvent.BUTTON2:
-                    break;
-                    
-                case MouseEvent.BUTTON3:
-                    break;
-            }
-        } else if (evt.getID() == MouseEvent.MOUSE_MOVED) {
-            buttonPress = true;
-            // Process mouse move event
-        }
-    }
-
     @Override
     public void processStimulus (Enumeration criteria) {
         WakeupCriterion wakeup;
         AWTEvent[] evt = null;
-        int xpos = 0, ypos = 0;
+        int xPos = 0, yPos = 0;
 
         while(criteria.hasMoreElements()) {
             wakeup = (WakeupCriterion)criteria.nextElement();
@@ -85,21 +64,16 @@ public abstract class PickMouseBehavior extends Behavior {
         if (evt[0] instanceof MouseEvent){
             mevent = (MouseEvent) evt[0];
 
-            if (debug) System.out.println("got mouse event");
-            processMouseEvent((MouseEvent)evt[0]);
-            xpos = mevent.getPoint().x;
-            ypos = mevent.getPoint().y;
+            xPos = mevent.getPoint().x;
+            yPos = mevent.getPoint().y;
         }
 
-        if (debug)
-            System.out.println("mouse position " + xpos + " " + ypos);
-
         if (buttonPress){
-            updateScene(xpos, ypos);
+            //updateScene(xPos, yPos);
         }
         
         wakeupOn (wakeupCondition);
     }
 
-    public abstract void updateScene(int xpos, int ypos);
+    public abstract void updateScene(int xPos, int yPos);
 }

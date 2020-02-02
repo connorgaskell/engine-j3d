@@ -9,6 +9,7 @@ import engine.objects.primitives.Text3D;
 import engine.script.StandardScript;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.media.j3d.Fog;
 import javax.media.j3d.Light;
@@ -90,7 +91,8 @@ public class TestScript extends StandardScript {
 
     @Override
     public void update() {
-        System.out.println("This message will appear every 1ms");
+        //System.out.println("This message will appear every 1ms");
+        text.setText("Elapsed Time: " + Integer.toString((count++) / 60) + "s");
     }
 
     @Override
@@ -98,8 +100,8 @@ public class TestScript extends StandardScript {
         //camera.lookAt(new Point3d(rotX, rotY, rotZ));
         //camera.setPosition(new Vector3f(posX, posY, posZ));
         cube.setPosition(new Vector3f(0, 10, cube.getPosition().z + 0.1f));
-        text.setText("Elapsed Frames: " + Integer.toString(count++));
-        System.out.println(mousePosition());
+        //System.out.println(mousePosition());
+        
     }
 
     @Override
@@ -163,6 +165,21 @@ public class TestScript extends StandardScript {
     @Override
     public void keyReleased(KeyEvent e) {
         pressed.remove(e.getKeyChar());
+    }
+
+    @Override
+    public void onMousePress(MouseEvent evt) {
+        System.out.println(evt);
+    }
+    
+    @Override
+    public void onMouseRelease(MouseEvent evt) {
+        System.out.println(evt);
+    }
+
+    @Override
+    public void onMouseMove(MouseEvent evt) {
+        
     }
 
 }
