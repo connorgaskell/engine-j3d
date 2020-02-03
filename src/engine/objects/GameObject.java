@@ -6,7 +6,7 @@ import javax.vecmath.Vector3f;
 
 public class GameObject extends TransformGroup {
     public TransformGroup gameObject, position, rotation, scale, bounds;
-    public String name, tag, layer;
+    private String name, tag, layer;
     public Vector3f origin;
     
     public GameObject() {
@@ -78,6 +78,32 @@ public class GameObject extends TransformGroup {
         return rot;
     }
     
+    /*@Override
+    public void setName(String name) {
+        this.name = name;
+    }*/
+    
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+    
+    public void setLayer(String layer) {
+        this.layer = layer;
+    }
+    
+    /*@Override
+    public String getName() {
+        return name;
+    }*/
+    
+    public String getTag() {
+        return tag;
+    }
+    
+    public String getLayer() {
+        return layer;
+    }
+    
     private void setCapabilities(TransformGroup transformGroup, String groupName) {
         transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
         transformGroup.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
@@ -85,4 +111,5 @@ public class GameObject extends TransformGroup {
         
         transformGroup.setUserData(groupName);
     }
+    
 }

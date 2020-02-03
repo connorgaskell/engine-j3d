@@ -4,6 +4,7 @@ import engine.Settings;
 import javax.media.j3d.*;
 import javax.vecmath.*;
 import com.sun.j3d.utils.picking.*;
+import engine.objects.GameObject;
 import java.util.ArrayList;
 
 public class Pick extends PickMouseBehavior {
@@ -33,9 +34,18 @@ public class Pick extends PickMouseBehavior {
         if(pickResult != null) {
             for (PickResult result : pickResult) {
                 try {
-                    if (layers.contains(result.getObject().getName())) {
-                        pickIntersection = result.getClosestIntersection(eyePos);
-                        intercept = pickIntersection.getPointCoordinatesVW();
+                    Node testingObject = result.getObject();
+                    boolean gameObjectFound = false;
+                    while(testingObject != null && !gameObjectFound) {
+                        if(testingObject instanceof GameObject) {
+                            GameObject go = (GameObject)testingObject;
+                            if (layers.contains(go.getLayer())) {
+                                pickIntersection = result.getClosestIntersection(eyePos);
+                                intercept = pickIntersection.getPointCoordinatesVW();
+                            }
+                            gameObjectFound = true;
+                        }
+                        testingObject = testingObject.getParent();
                     }
                 } catch(NullPointerException e) { }
             }

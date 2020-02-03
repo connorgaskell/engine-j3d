@@ -18,8 +18,9 @@ public class Ball extends GameObject {
 
         setPosition(pos);
 
+        addChild(gameObject);
         BranchGroup gameObjectGroup = new BranchGroup();
-        gameObjectGroup.addChild(gameObject);
+        gameObjectGroup.addChild(this);
         branchGroup.addChild(gameObjectGroup);
     }
     

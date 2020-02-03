@@ -6,6 +6,7 @@ import engine.objects.Camera;
 import engine.objects.GameObject;
 import engine.objects.PrimitiveType;
 import engine.objects.light.LightType;
+import engine.objects.primitives.Plane;
 import engine.objects.primitives.Text3D;
 import engine.script.StandardScript;
 import java.awt.Color;
@@ -81,15 +82,19 @@ public class TestScript extends StandardScript {
             for(int z = -20; z < 20; z++) {
                 if(x % 2 == 0) {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), stoneTexture);
+                        GameObject plane = instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), stoneTexture);
+                        plane.setLayer("Floor");
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grassTexture);
+                        GameObject plane = instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grassTexture);
+                        plane.setLayer("Floor");
                     }
                 } else {
                     if(z % 2 == 0) {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grassTexture);
+                        GameObject plane = instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), grassTexture);
+                        plane.setLayer("Floor");
                     } else {
-                        instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), stoneTexture);
+                        GameObject plane = instantiate(PrimitiveType.PLANE, new Vector3f(x * 10, 0, z * 10), new Quat4d(180, 0, 0, 0), new Vector3f(10, 10, 10), stoneTexture);
+                        plane.setLayer("Floor");
                     }
                 }
             }

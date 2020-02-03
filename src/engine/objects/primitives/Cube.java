@@ -16,11 +16,14 @@ public class Cube extends GameObject {
         bounds.addChild(cubeObject.getParent());
         setPosition(pos);
         setRotation(rot);
-        this.name = name;
+        //setName(name);
         cubeObject.setName(name);
         
+        //BranchGroup gameObjectGroup = new BranchGroup();
+        addChild(gameObject);
+        
         BranchGroup gameObjectGroup = new BranchGroup();
-        gameObjectGroup.addChild(gameObject);
+        gameObjectGroup.addChild(this);
         branchGroup.addChild(gameObjectGroup);
     }
     

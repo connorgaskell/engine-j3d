@@ -9,13 +9,12 @@ public class Plane extends GameObject {
 
     public Plane(Vector3f pos, Quat4d rot, double scaleX, double scaleZ, ObjectMaterial material, BranchGroup branchGroup, String planeName) {
         Shape3D plane = createPlane(pos.x * 2, pos.y * 2, pos.z * 2, scaleX * 1, scaleZ * 1, material);
-        
-        this.name = planeName;
-        plane.setName(this.name);
-        
+ 
         bounds.addChild(plane);
+  
+        addChild(gameObject);
         BranchGroup gameObjectGroup = new BranchGroup();
-        gameObjectGroup.addChild(gameObject);
+        gameObjectGroup.addChild(this);
         branchGroup.addChild(gameObjectGroup);
     }
 
