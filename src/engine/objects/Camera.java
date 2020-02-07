@@ -16,10 +16,10 @@ public class Camera {
     private final Viewer viewer;
     private final View view;
     
-    public Camera() {
+    public Camera(boolean antiAliasing) {
         viewer = Engine.scene.getViewer();
         view = viewer.getView();
-        view.setSceneAntialiasingEnable(true);
+        view.setSceneAntialiasingEnable(antiAliasing);
         view.setDepthBufferFreezeTransparent(true);
         view.setWindowResizePolicy(View.VIRTUAL_WORLD);
         view.setBackClipDistance(Settings.RENDER_DISTANCE);

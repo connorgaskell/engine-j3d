@@ -11,5 +11,5 @@ public class Settings {
     public static final float RENDER_DISTANCE = 800.0f;
     
     public static final BoundingSphere INFINITE_BOUNDS = new BoundingSphere(new Point3d(0, 0, 0), 1e100);
-
+    
 }

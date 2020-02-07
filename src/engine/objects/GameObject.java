@@ -1,7 +1,11 @@
 package engine.objects;
 
+import engine.core.Engine;
 import javax.media.j3d.*;
+import javax.vecmath.Point3d;
 import javax.vecmath.Quat4d;
+import javax.vecmath.SingularMatrixException;
+import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
 public class GameObject extends TransformGroup {
@@ -58,6 +62,30 @@ public class GameObject extends TransformGroup {
         rotation.setTransform(transform3D);
     }
     
+    public void setRotation(Transform3D newT3D) {
+        Transform3D transform3D = getTransform(rotation);
+        Transform3D transform3D1 = newT3D;
+
+        transform3D.mul(transform3D1);
+
+        rotation.setTransform(transform3D);
+    }
+    
+    public void lookAt(Vector3f center) {
+        Transform3D transform3D = getTransform(rotation);
+        Transform3D transform3D1 = new Transform3D(transform3D);
+
+        Vector3f translation = new Vector3f();
+        transform3D1.get(translation);
+  
+        transform3D1.lookAt(new Point3d(translation), new Point3d(center.x, 0, center.z), new Vector3d(0, 1, 0));
+        
+        try {
+            transform3D1.invert();
+            rotation.setTransform(transform3D1);
+        } catch(SingularMatrixException e) { }
+    }
+    
     public Transform3D getTransform(TransformGroup transformGroup) {
         Transform3D transform3D = new Transform3D();
         transformGroup.getTransform(transform3D);
@@ -77,7 +105,7 @@ public class GameObject extends TransformGroup {
         transform3D.get(rot);
         return rot;
     }
-    
+
     /*@Override
     public void setName(String name) {
         this.name = name;

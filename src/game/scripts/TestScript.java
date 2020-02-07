@@ -28,7 +28,7 @@ public class TestScript extends StandardScript {
     
     @Override
     public void start() {
-        camera = new Camera();
+        camera = new Camera(true);
         
         ArrayList<String> layers = new ArrayList<>();
         layers.add("Floor");
@@ -71,8 +71,8 @@ public class TestScript extends StandardScript {
         GameObject cone = instantiate(PrimitiveType.CONE, new Vector3f(40, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         GameObject cyl = instantiate(PrimitiveType.CYLINDER, new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(10, 50, 10), texturedMaterial);
         
-        humanoid = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 0), new Quat4d(180, 0, 0, 0), new Vector3f(25, 25, 25), texturedMaterial);
-        humanoid.setPosition(new Vector3f(100, 25, 0));
+        humanoid = instantiate("./res/humanoid_mesh.obj", new Vector3f(60, 10, 50), new Quat4d(180, 0, 0, 0), new Vector3f(25, 25, 25), texturedMaterial);
+        humanoid.setPosition(new Vector3f(0, 25, 0));
         humanoid.setPickable(false);
         
         text = text3d("Hello, world!", new Vector3f(0, 5, -100), blueMaterial);
@@ -115,9 +115,10 @@ public class TestScript extends StandardScript {
     public void frameUpdate() {
         //camera.lookAt(new Point3d(rotX, rotY, rotZ));
         //camera.setPosition(new Vector3f(posX, posY, posZ));
-        //cube.setPosition(new Vector3f(cube.getPosition().x, cube.getPosition().y, cube.getPosition().z + 0.1f));
+        cube.lookAt(new Vector3f(1, 0, 0));
+        cube.setPosition(new Vector3f(cube.getPosition().x + 0.3f, cube.getPosition().y, cube.getPosition().z + 0.1f));
         //cube.setPosition(new Vector3f(mousePosition().x, 0, mousePosition().z));
-        cube.setRotation(new Quat4d(0, cube.getRotation().y + 0.1f, 0, 1));
+        //cube.setRotation(new Quat4d(0, cube.getRotation().y + 0.1f, 0, 1));
         //System.out.println(mousePosition().x);
         //System.out.println(mousePosition());
         
@@ -189,7 +190,8 @@ public class TestScript extends StandardScript {
     @Override
     public void onMousePress(MouseEvent evt) {
         System.out.println(evt);
-        humanoid.setPosition(new Vector3f((float)mousePosition(mouse).x, humanoid.getPosition().y, (float)mousePosition(mouse).z));
+        humanoid.lookAt(new Vector3f((float)mousePosition(mouse).x, 0, (float)mousePosition(mouse).z));
+        //humanoid.setPosition(new Vector3f((float)mousePosition(mouse).x, humanoid.getPosition().y, (float)mousePosition(mouse).z));
     }
     
     @Override
